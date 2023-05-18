@@ -1,19 +1,30 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { Grid, Card, CardContent, CardMedia, Typography, Button } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import IconButton from '@mui/material/IconButton';
+import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
 import { useQuery } from 'react-query';
 import { axiosInstance } from '../network/axiosInstance';
 import { BASE_API_URL } from '../env/api';
+import { CartContext } from '../CartContext';
 
 export default function ActionAreaCard() {
   const { data: products, isLoading } = useQuery('productsData', () =>
     axiosInstance.get('products')
   );
-
+  const { items, addToCart, removeFromCart, count, setCount } = useContext(CartContext);
 
   const handleAddToCart = () => {
-    
+    setCount(count + 1);
+  };
+
+  const handleRemoveFromCart = () => {
+    if (count > 0) {
+      setCount(count - 1);
+    }
+  };
+
+  const isAdded = (productId) => {
+    return items.some((item) => item.id === productId);
   };
 
   if (isLoading) {
@@ -42,20 +53,35 @@ export default function ActionAreaCard() {
                 Category: {product.category}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                <Button
-                  style={{ color: '#FF6B4C', border: '1px solid #FF6B4C', marginTop: '20px' }}
-                  variant="outlined"
-                  onClick={handleAddToCart}
-                >
-                  Add
-                  <IconButton
-                    color="primary"
-                    style={{ color: '#FF6B4C', width: '22px', paddingLeft: '20px' }}
-                    aria-label="add to shopping cart"
+                {isAdded(product.id) ? (
+                  <Button
+                    style={{
+                      color: '#FF6B4C',
+                      border: '1px solid #FF6B4C',
+                      marginTop: '20px',
+                    }}
+                    variant="outlined"
+                    disabled={isAdded(product.id)}
+                    onClick={handleRemoveFromCart}
                   >
-                    <AddShoppingCartIcon />
-                  </IconButton>
-                </Button>
+                    Remove
+                    <RemoveShoppingCartIcon style={{ marginLeft: '10px' }} />
+                  </Button>
+                ) : (
+                  <Button
+                    style={{
+                      color: '#FF6B4C',
+                      border: '1px solid #FF6B4C',
+                      marginTop: '20px',
+                    }}
+                    variant="outlined"
+                    disabled={isAdded(product.id)}
+                    onClick={handleAddToCart}
+                  >
+                    Add to Cart
+                    <AddShoppingCartIcon style={{ marginLeft: '10px' }} />
+                  </Button>
+                )}
               </Typography>
             </CardContent>
           </Card>

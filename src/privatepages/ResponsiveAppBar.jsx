@@ -14,11 +14,14 @@ import { CartContext } from '../CartContext';
 import Products from './Products';
 import Checkout from './Checkout';
 import ActionAreaCard from './ActionAreaCard';
+import Register from '../PublicPages/Register';
+import { Login } from '@mui/icons-material';
+import LoginPage from '../PublicPages/LoginPage';
 const pages = ['Products',];
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
-  const {items}=useContext(CartContext)
+  const {items,count}=useContext(CartContext)
   let navigate=useNavigate()
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -42,6 +45,19 @@ const basket=()=>{
   {navigate("/checkout")}
 
 }
+
+const register=()=>{
+  <Link to={Register}>Register</Link>
+  {navigate("/register")}
+
+  
+}
+const login=()=>{
+  <Link to={LoginPage}>login</Link>
+  {navigate("/login")}
+
+}
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -89,10 +105,10 @@ const basket=()=>{
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
               <Stack spacing={2} direction="row">
-              <Button style={{backgroundColor:"#3DEADF"}} variant="contained">Login</Button>  
 
-              <Button style={{backgroundColor:"#28ACCF"}} variant="contained">Register</Button>    
-              <Button onClick={basket} style={{backgroundColor:"#FF6B4C"}} variant="contained">Basket:{items.length}</Button>    
+              <Button onClick={login} style={{backgroundColor:"#3DEADF"}} variant="contained">Login</Button>  
+              <Button onClick={register} style={{backgroundColor:"#28ACCF"}} variant="contained">Register</Button>    
+              <Button onClick={basket} style={{backgroundColor:"#FF6B4C"}} variant="contained">Basket:{count}</Button>    
 
               </Stack>
              </IconButton>
