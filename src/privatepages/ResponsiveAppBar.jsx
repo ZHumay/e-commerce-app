@@ -10,9 +10,10 @@ import Tooltip from '@mui/material/Tooltip';
 import Stack from '@mui/material/Stack';
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from 'react';
-import CartContext from '../CartContext';
+import { CartContext } from '../CartContext';
 import Products from './Products';
 import Checkout from './Checkout';
+import ActionAreaCard from './ActionAreaCard';
 const pages = ['Products',];
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -91,7 +92,7 @@ const basket=()=>{
               <Button style={{backgroundColor:"#3DEADF"}} variant="contained">Login</Button>  
 
               <Button style={{backgroundColor:"#28ACCF"}} variant="contained">Register</Button>    
-              <Button onClick={basket} style={{backgroundColor:"#FF6B4C"}} variant="contained">Basket:{items}</Button>    
+              <Button onClick={basket} style={{backgroundColor:"#FF6B4C"}} variant="contained">Basket:{items.length}</Button>    
 
               </Stack>
              </IconButton>
@@ -122,6 +123,9 @@ const basket=()=>{
         </Toolbar>
       </Container>
     </AppBar>
+    
   );
+ 
+
 }
 export default ResponsiveAppBar;

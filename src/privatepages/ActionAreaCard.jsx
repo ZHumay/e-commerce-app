@@ -1,17 +1,21 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 import { Grid, Card, CardContent, CardMedia, Typography, Button } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import IconButton from '@mui/material/IconButton';
 import { useQuery } from 'react-query';
 import { axiosInstance } from '../network/axiosInstance';
 import { BASE_API_URL } from '../env/api';
-import CartContext from '../CartContext';
 
 export default function ActionAreaCard() {
   const { data: products, isLoading } = useQuery('productsData', () =>
-    axiosInstance.get(`${BASE_API_URL}/products`)
+    axiosInstance.get('products')
   );
-  const { addToCart } = useContext(CartContext);
+
+
+  const handleAddToCart = () => {
+    
+  };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -37,20 +41,22 @@ export default function ActionAreaCard() {
               <Typography variant="body2" color="text.secondary">
                 Category: {product.category}
               </Typography>
-              <Button
-                style={{ color: '#FF6B4C', border: '1px solid #FF6B4C', marginTop: '20px' }}
-                variant="outlined"
-                onClick={() => addToCart(product.image, product.title, product.price, product.category)}
-              >
-                Add
-                <IconButton
-                  color="primary"
-                  style={{ color: '#FF6B4C', width: '22px', paddingLeft: '20px' }}
-                  aria-label="add to shopping cart"
+              <Typography variant="body2" color="text.secondary">
+                <Button
+                  style={{ color: '#FF6B4C', border: '1px solid #FF6B4C', marginTop: '20px' }}
+                  variant="outlined"
+                  onClick={handleAddToCart}
                 >
-                  <AddShoppingCartIcon />
-                </IconButton>
-              </Button>
+                  Add
+                  <IconButton
+                    color="primary"
+                    style={{ color: '#FF6B4C', width: '22px', paddingLeft: '20px' }}
+                    aria-label="add to shopping cart"
+                  >
+                    <AddShoppingCartIcon />
+                  </IconButton>
+                </Button>
+              </Typography>
             </CardContent>
           </Card>
         </Grid>

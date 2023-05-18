@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
-import CartContext from '../CartContext';
+import { CartContext } from '../CartContext';
 
 function Checkout() {
-  const { cartItems } = useContext(CartContext);
+  const { items } = useContext(CartContext);
 
   return (
     <>
       <div>Checkout</div>
 
-      {cartItems.map((item) => (
+      {items.map((item) => (
         <div key={item.title}>
           <h2>{item.title}</h2>
         </div>
