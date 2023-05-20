@@ -27,6 +27,7 @@ function LoginPage() {
   const formik = useFormik({
     initialValues: {
       name: '',
+      surname:'',
       email: '',
       password: '',
     },
@@ -55,7 +56,22 @@ function LoginPage() {
         )}
         
       </div>
-
+      <div style={{ marginBottom: '20px' }}>
+        <label htmlFor="surname" style={{ display: 'block', marginBottom: '5px' }}>Surname:</label>
+        <input
+        style={{width:"300px"}}
+          type="text"
+          id="surname"
+          surname="surname"
+          onChange={formik.handleChange}
+          value={formik.values.surname}
+        />
+        {formik.touched.surname && formik.errors.surname && (
+          
+          <p style={{ color: 'red', fontSize: '12px', marginTop: '5px' }}>{formik.errors.surname}</p>
+        )}
+        
+      </div>
       <div style={{ marginBottom: '20px' }}>
         <label htmlFor="email" style={{ display: 'block', marginBottom: '5px' }}>E-mail:</label>
         <input
