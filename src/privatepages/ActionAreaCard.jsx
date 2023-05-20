@@ -13,16 +13,6 @@ export default function ActionAreaCard() {
   );
   const { items, addToCart, removeFromCart, count, setCount } = useContext(CartContext);
 
-  const handleAddToCart = () => {
-    setCount(count + 1);
-  };
-
-  const handleRemoveFromCart = () => {
-    if (count > 0) {
-      setCount(count - 1);
-    }
-  };
-
   const isAdded = (productId) => {
     return items.some((item) => item.id === productId);
   };
@@ -53,35 +43,34 @@ export default function ActionAreaCard() {
                 Category: {product.category}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                {isAdded(product.id) ? (
-                  <Button
-                    style={{
-                      color: '#FF6B4C',
-                      border: '1px solid #FF6B4C',
-                      marginTop: '20px',
-                    }}
-                    variant="outlined"
-                    disabled={isAdded(product.id)}
-                    onClick={handleRemoveFromCart}
-                  >
-                    Remove
-                    <RemoveShoppingCartIcon style={{ marginLeft: '10px' }} />
-                  </Button>
-                ) : (
-                  <Button
-                    style={{
-                      color: '#FF6B4C',
-                      border: '1px solid #FF6B4C',
-                      marginTop: '20px',
-                    }}
-                    variant="outlined"
-                    disabled={isAdded(product.id)}
-                    onClick={handleAddToCart}
-                  >
-                    Add to Cart
-                    <AddShoppingCartIcon style={{ marginLeft: '10px' }} />
-                  </Button>
-                )}
+              {isAdded(product.id) ? (
+  <Button
+    style={{
+      color: '#FF6B4C',
+      border: '1px solid #FF6B4C',
+      marginTop: '20px',
+    }}
+    variant="outlined"
+    onClick={() => removeFromCart(product.id)}
+  >
+    Remove
+    <RemoveShoppingCartIcon style={{ marginLeft: '10px' }} />
+  </Button>
+) : (
+  <Button
+    style={{
+      color: '#FF6B4C',
+      border: '1px solid #FF6B4C',
+      marginTop: '20px',
+    }}
+    variant="outlined"
+    onClick={() => addToCart(product.image, product.title, product.price, product.category)}
+  >
+    Add to Cart
+    <AddShoppingCartIcon style={{ marginLeft: '10px' }} />
+  </Button>
+)}
+
               </Typography>
             </CardContent>
           </Card>
