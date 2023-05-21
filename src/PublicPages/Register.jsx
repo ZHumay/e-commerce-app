@@ -37,7 +37,10 @@ function Register() {
     },
     validationSchema: addProductValidationSchema,
     onSubmit: (values) => {
+      window.alert('You have successfully registered!');
     navigate("/login")
+    localStorage.setItem('user', JSON.stringify(values));
+
     },
   });
 

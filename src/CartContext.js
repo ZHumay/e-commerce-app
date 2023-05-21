@@ -1,29 +1,36 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 
 const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
-  const [items, setItems] = useState([]); 
+  const [items, setItems] = useState([]);
+  const [count, setCount] = useState(0);
 
-const [count,setCount]=useState(0)
+  useEffect(() => {
+    const storedItems = localStorage.getItem('cartItems');
+    if (storedItems) {
+      const parsedItems = JSON.parse(storedItems);
+      setItems(parsedItems);
+      setCount(parsedItems.length);
+    }
+  }, []);
 
-
-  const addToCart = (image, title, price, category) => {
-    const newItem = { image, title, price, category };
-    setItems((prevItems) => [...prevItems, newItem]);
-    setCount(count + 1);
+  const addToCart = (product) => {
+    const updatedItems = [...items, product];
+    setItems(updatedItems);
+    setCount(updatedItems.length);
+    localStorage.setItem('cartItems', JSON.stringify(updatedItems));
   };
 
-
   const removeFromCart = (productId) => {
-    setItems(items.filter((item) => item.id !== productId));
-    if (count > 0) {
-      setCount(count - 1)}
-    
+    const updatedItems = items.filter((item) => item.id !== productId);
+    setItems(updatedItems);
+    setCount(updatedItems.length);
+    localStorage.setItem('cartItems', JSON.stringify(updatedItems));
   };
 
   return (
-    <CartContext.Provider value={{ items,setItems, addToCart,count,setCount,removeFromCart }}>
+    <CartContext.Provider value={{ items, setItems, addToCart, count, setCount, removeFromCart }}>
       {children}
     </CartContext.Provider>
   );

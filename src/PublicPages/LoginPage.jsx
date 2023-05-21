@@ -33,6 +33,12 @@ function LoginPage() {
     },
     validationSchema: addProductValidationSchema,
     onSubmit: (values) => {
+      const storedUser = JSON.parse(localStorage.getItem('user'));
+if (storedUser && storedUser.email === values.email && storedUser.password === values.password) {
+  navigate("/");
+} else {
+  window.alert('Invalid login credentials');
+}
     navigate("/")
     },
   });
