@@ -3,14 +3,10 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 
-const addProductValidationSchema = Yup.object({
-  name: Yup.string().required('Name is important'),
-  email: Yup.string().required('Email is important').email('Enter a valid email address'),
-  surname: Yup.string().required('Surname is important'),
-  password: Yup.string().min(8, 'Minimum 8 characters').required('Password is important'),
-  acceptPassword: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Passwords must match')
-    .required('Password confirmation is important'),
+const loginValidationSchema = Yup.object({
+  name: Yup.string().required('Name is required'),
+  email: Yup.string().required('Email is required').email('Enter a valid email address'),
+  password: Yup.string().required('Password is required'),
 });
 
 function LoginPage() {
@@ -20,15 +16,26 @@ function LoginPage() {
     initialValues: {
       name: '',
       email: '',
-      surname: '',
       password: '',
-      acceptPassword: '',
     },
-    validationSchema: addProductValidationSchema,
+    validationSchema: loginValidationSchema,
     onSubmit: (values) => {
-      window.alert('You have successfully registered!');
-      navigate('/login');
-      localStorage.setItem('user', JSON.stringify(values));
+      const storedUsers = JSON.parse(localStorage.getItem('registeredUsers'));
+      const loggedInUsers = JSON.parse(localStorage.getItem('loggedInUsers')) || [];
+
+      const existingUser = storedUsers.find(
+        (user) => user.name === values.name && user.email === values.email && user.password === values.password
+      );
+
+      if (existingUser) {
+        window.alert('You have successfully logged in!');
+        loggedInUsers.push(existingUser);
+        localStorage.setItem('loggedInUsers', JSON.stringify(loggedInUsers));
+
+        navigate('/');
+      } else {
+        window.alert('Invalid name, email, or password');
+      }
     },
   });
 
@@ -70,22 +77,6 @@ function LoginPage() {
           )}
         </div>
         <div style={{ marginBottom: '20px' }}>
-          <label htmlFor="surname" style={{ display: 'block', marginBottom: '5px' }}>
-            Surname:
-          </label>
-          <input
-            style={{ width: '300px', padding: '5px' }}
-            type="text"
-            id="surname"
-            name="surname"
-            onChange={formik.handleChange}
-            value={formik.values.surname}
-          />
-          {formik.touched.surname && formik.errors.surname && (
-            <p style={{ color: 'red', fontSize: '12px', marginTop: '5px' }}>{formik.errors.surname}</p>
-          )}
-        </div>
-        <div style={{ marginBottom: '20px' }}>
           <label htmlFor="email" style={{ display: 'block', marginBottom: '5px' }}>
             E-mail:
           </label>
@@ -115,24 +106,6 @@ function LoginPage() {
           />
           {formik.touched.password && formik.errors.password && (
             <p style={{ color: 'red', fontSize: '12px', marginTop: '5px' }}>{formik.errors.password}</p>
-          )}
-        </div>
-        <div style={{ marginBottom: '20px' }}>
-          <label htmlFor="acceptPassword" style={{ display: 'block', marginBottom: '5px' }}>
-            Confirm Password:
-          </label>
-          <input
-            style={{ width: '300px', padding: '5px' }}
-            type="password"
-            id="acceptPassword"
-            name="acceptPassword"
-            onChange={formik.handleChange}
-            value={formik.values.acceptPassword}
-          />
-          {formik.touched.acceptPassword && formik.errors.acceptPassword && (
-            <p style={{ color: 'red', fontSize: '12px', marginTop: '5px' }}>
-              {formik.errors.acceptPassword}
-            </p>
           )}
         </div>
         <div style={{ textAlign: 'center' }}>

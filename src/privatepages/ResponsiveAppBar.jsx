@@ -8,62 +8,57 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import Stack from '@mui/material/Stack';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { CartContext } from '../CartContext';
-import Products from './Products';
 import Checkout from './Checkout';
-import ActionAreaCard from './ActionAreaCard';
 import Register from '../PublicPages/Register';
-import { Login } from '@mui/icons-material';
 import LoginPage from '../PublicPages/LoginPage';
-const pages = ['Products',];
-// const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+import Products from './Products';
+
 
 function ResponsiveAppBar() {
-  const {items,count}=useContext(CartContext)
-  let navigate=useNavigate()
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const { count } = useContext(CartContext);
+  const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+  const currentUser = localStorage.getItem('registeredUsers');
+  const loggedInUsers = localStorage.getItem('loggedInUsers');
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
-    <Link to={Products}>Products</Link>
-   {navigate("/products")} 
+  const handleLogout = () => {
+    navigate('/login');
+    localStorage.removeItem('loggedInUsers');
   };
 
-const basket=()=>{
-  <Link to={Checkout}>Basket</Link>
-  {navigate("/checkout")}
+  const basket = () => {
+    navigate('/checkout');
+  };
 
-}
+  const register = () => {
+    navigate('/register');
+  };
 
-const register=()=>{
-  <Link to={Register}>Register</Link>
-  {navigate("/register")}
+  const login = () => {
+    navigate('/login');
+  };
 
-  
-}
-const login=()=>{
-  <Link to={LoginPage}>login</Link>
-  {navigate("/login")}
-
-}
+// const openproduct=()=>{
+//   <Products/>
+// }
+  const isUserLoggedIn = !!loggedInUsers;
 
   return (
-    <AppBar style={{backgroundColor:"#E58416"}} position="static">
+    <AppBar style={{ backgroundColor: '#E58416' }} position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
-          
             variant="h6"
             noWrap
-            component="a"
-            href="/"
+            component={Link}
+            to="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -74,47 +69,66 @@ const login=()=>{
               textDecoration: 'none',
             }}
           >
-       
-              E-commerce
-      
+            E-commerce
           </Typography>
 
-    
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {isUserLoggedIn && (
               <Button
-          
-                key={page}
-                onClick={handleCloseNavMenu}
-                 sx={{ my: 2, color: 'white', display: 'block' }}
-  
-               >
-                 {page}
-               </Button>
-           
-
-            ))}
+                component={Link}
+                to="/products"
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                Products
+              </Button>
+            )}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Stack spacing={2} direction="row">
-
-              <Button onClick={login} style={{backgroundColor:"#3DEADF"}} variant="contained">Login</Button>  
-              <Button onClick={register} style={{backgroundColor:"#28ACCF"}} variant="contained">Register</Button>    
-              <Button onClick={basket} style={{backgroundColor:"#FF6B4C"}} variant="contained">Basket:{count}</Button>    
-
-              </Stack>
-             </IconButton>
+                <Stack spacing={2} direction="row">
+                  {loggedInUsers ? (
+                    <Button
+                      onClick={handleLogout}
+                      style={{ backgroundColor: '#FF6B4C' }}
+                      variant="contained"
+                    >
+                      Logout
+                    </Button>
+                  ) : (
+                    <>
+                      <Button
+                        onClick={login}
+                        style={{ backgroundColor: '#3DEADF' }}
+                        variant="contained"
+                      >
+                        Login
+                      </Button>
+                      <Button
+                        onClick={register}
+                        style={{ backgroundColor: '#28ACCF' }}
+                        variant="contained"
+                      >
+                        Register
+                      </Button>
+                    </>
+                  )}
+                  <Button
+                    onClick={basket}
+                    style={{ backgroundColor: '#FF6B4C' }}
+                    variant="contained"
+                  >
+                    Basket: {count}
+                  </Button>
+                </Stack>
+              </IconButton>
             </Tooltip>
           </Box>
         </Toolbar>
       </Container>
     </AppBar>
-    
   );
- 
-
 }
+
 export default ResponsiveAppBar;

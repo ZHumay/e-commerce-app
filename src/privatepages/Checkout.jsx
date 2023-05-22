@@ -17,7 +17,7 @@ function Checkout() {
   let navigate=useNavigate()
 
   const handleOrderClick = () => {
-    const storedUser = JSON.parse(localStorage.getItem('user'));
+    const storedUser = JSON.parse(localStorage.getItem('registeredUsers'));
     if (storedUser) {
       window.alert('Your order is complete');
     } else {

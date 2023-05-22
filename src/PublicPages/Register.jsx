@@ -27,9 +27,21 @@ function Register() {
     },
     validationSchema: addProductValidationSchema,
     onSubmit: (values) => {
-      window.alert('You have successfully registered!');
-      navigate('/login');
-      localStorage.setItem('user', JSON.stringify(values));
+      const storedUsers = JSON.parse(localStorage.getItem('registeredUsers'));
+      const existingUser = storedUsers.find(
+        (user) => user.name === values.name && user.email === values.email && user.password === values.password
+      );
+    
+      if (existingUser) {
+        const loggedInUsers = JSON.parse(localStorage.getItem('loggedInUsers')) || [];
+        loggedInUsers.push(existingUser);
+        localStorage.setItem('loggedInUsers', JSON.stringify(loggedInUsers));
+    
+        window.alert('You have successfully logged in!');
+        navigate('/');
+      } else {
+        window.alert('Invalid name, email, or password');
+      }
     },
   });
 

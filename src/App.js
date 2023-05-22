@@ -7,7 +7,8 @@ import { routes } from './routes/routes';
 import ActionAreaCard from './privatepages/ActionAreaCard';
 import { CartProvider } from './CartContext';
 import ProductPage from './privatepages/ProductPage';
-import { ReactQueryDevtools } from 'react-query/devtools'
+import { ReactQueryDevtools } from 'react-query/devtools';
+import Products from './privatepages/Products';
 
 const queryClient = new QueryClient({
   defaultOptions:{
@@ -15,13 +16,15 @@ const queryClient = new QueryClient({
       refetchOnMount:false
     }
   }
-}) //bunun sayesinde her defe sorgu getmir
+}); //bunun sayesinde her defe sorgu getmir
 
 function App() {
   return (
     <>
         <ResponsiveAppBar />
+      
         <QueryClientProvider client={queryClient}>
+      
           <Routes>
             {routes &&
               routes.map((item) => {
