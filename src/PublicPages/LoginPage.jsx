@@ -44,7 +44,7 @@ if (storedUser && storedUser.email === values.email && storedUser.password === v
   });
 
   return (
-    <div style={{ background: 'linear-gradient(#e66465, #9198e5)',height:"900px"}}>
+    <div style={{ background: ' linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c)',height:"900px"}}>
     <form onSubmit={formik.handleSubmit} style={{ maxWidth: '400px', margin: ' auto ',transform: 'translateY(70px)' }}>
       <div style={{ marginBottom: '20px' }}>
         <label htmlFor="name" style={{ display: 'block', marginBottom: '5px' }}>Name:</label>

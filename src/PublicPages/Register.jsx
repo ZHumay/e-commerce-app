@@ -45,12 +45,12 @@ function Register() {
   });
 
   return (
-    <div style={{ background: 'linear-gradient(#e66465, #9198e5)',height:"900px"}}>
+    <div style={{ background: 'linear-gradient(0.25turn, #E3BE7E, #F1DCB7, #f69d3c)',height:"900px"}}>
     <form onSubmit={formik.handleSubmit} style={{ maxWidth: '400px', margin: ' auto ',transform: 'translateY(70px)' }}>
       <div style={{ marginBottom: '20px' }}>
-        <label htmlFor="name" style={{ display: 'block', marginBottom: '5px' }}>Name:</label>
+        <label htmlFor="name" style={{ display: 'block', marginBottom: '5px',fontSize:"30px" }}>Name:</label>
         <input
-        style={{width:"300px"}}
+        style={{width:"300px",}}
           type="text"
           id="name"
           name="name"
@@ -64,7 +64,7 @@ function Register() {
         
       </div>
       <div style={{ marginBottom: '20px' }}>
-        <label htmlFor="surname" style={{ display: 'block', marginBottom: '5px' }}>Surname:</label>
+        <label htmlFor="surname" style={{ display: 'block', marginBottom: '5px',fontSize:"30px" }}>Surname:</label>
         <input
         style={{width:"300px"}}
           type="text"
@@ -81,7 +81,7 @@ function Register() {
       </div>
 
       <div style={{ marginBottom: '20px' }}>
-        <label htmlFor="email" style={{ display: 'block', marginBottom: '5px' }}>E-mail:</label>
+        <label htmlFor="email" style={{ display: 'block', marginBottom: '5px',fontSize:"30px"}}>E-mail:</label>
         <input
           type="email"
           style={{width:"300px"}}
@@ -97,7 +97,7 @@ function Register() {
       </div>
 
       <div style={{ marginBottom: '20px' }}>
-        <label style={{ display: 'block', marginBottom: '5px' }}>Gender:</label>
+        <label style={{ display: 'block', marginBottom: '5px',fontSize:"30px" }}>Gender:</label>
         <div>
           <label>
             <input
@@ -133,7 +133,7 @@ function Register() {
       </div>
 
       <div>
-        <label style={{ display: 'block', marginBottom: '5px' }} htmlFor="password">Password:</label>
+        <label style={{ display: 'block', marginBottom: '5px',fontSize:"30px" }} htmlFor="password">Password:</label>
         <input
           type="password"
           style={{width:"300px"}}
@@ -149,7 +149,7 @@ function Register() {
           )}
           </div>
           <div>
-    <label style={{ display: 'block', marginBottom: '5px' }} htmlFor="acceptPassword"> Confirm Password:</label>
+    <label style={{ display: 'block', marginBottom: '5px',fontSize:"30px" }} htmlFor="acceptPassword"> Confirm Password:</label>
     <input
       type="password"
       id="acceptPassword"
@@ -160,7 +160,7 @@ function Register() {
       value={formik.values.acceptPassword}
     />
     {formik.touched.acceptPassword && formik.errors.acceptPassword && (
-      <p style={{ color: 'red', fontSize: '12px', marginTop: '5px' }}>{formik.errors.acceptPassword}</p>
+      <p style={{ color: 'red', fontSize: '12px', marginTop: '5px', }}>{formik.errors.acceptPassword}</p>
     )}
   </div>
 
