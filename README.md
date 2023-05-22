@@ -1,3 +1,7 @@
+(E-commerce yazisina click etdikde cardlar acilir, products yazisinda ise table. Qeydiyyat olunmamis biri basketde order buttonuna click etdikde avtomatik registere kecid edir ve sonra login
+olduqda artiq ordere click etdikde "Your order is complete" alerti ekrana gelir)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
