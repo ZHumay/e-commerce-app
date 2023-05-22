@@ -11,6 +11,7 @@ const addProductValidationSchema = Yup.object({
   email: Yup.string().required('Email is important')
     .email('Düzgün bir e-mail ünvanı daxil edin')
 ,
+  surname: Yup.string().required(' Surname is important'),
 
   password: Yup.string()
     .min(8, 'min 8 symbol')
@@ -19,6 +20,8 @@ const addProductValidationSchema = Yup.object({
   acceptPassword: Yup.string()
     .oneOf([Yup.ref('password'), null], 'Passwords must match ')
         .required('Password confirmation is important'),
+  
+  
 });
 
 function Register() {
