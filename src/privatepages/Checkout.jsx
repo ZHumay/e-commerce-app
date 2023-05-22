@@ -87,7 +87,7 @@ function Checkout() {
                 component="img"
                 height="140"
                 image={item.image}
-                style={{ width: "40%", marginTop: "40px" }}
+                style={{ width: "40%", marginTop: "40px" ,height:"auto"}}
                 alt={item.title}
               />
               <CardContent>

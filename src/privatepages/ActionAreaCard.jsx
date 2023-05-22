@@ -48,7 +48,7 @@ export default function ActionAreaCard() {
               <CardMedia
                 component="img"
                 image={product.image}
-                style={{ width: "40%", height: "auto", marginTop: "40px" }}
+                style={{ width: "40%", height: "auto", margin: "40px auto ", }}
                 alt={product.title}
               />
               <CardContent>
@@ -79,11 +79,11 @@ export default function ActionAreaCard() {
             </Card>
           )}
           {isAdded(product.id) && (
-            <Card sx={{ height: "100%" }} style={{ margin: "30px" }}>
+            <Card sx={{ height: "100%" }} style={{ margin: "30px", }}>
               <CardMedia
                 component="img"
                 image={product.image}
-                style={{ width: "40%", height: "auto", marginTop: "40px" }}
+                style={{ width: "40%", height: "auto", margin: "40px auto ", }}
                 alt={product.title}
               />
               <CardContent>

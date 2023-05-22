@@ -20,7 +20,6 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <>
-      <CartProvider>
         <ResponsiveAppBar />
         <QueryClientProvider client={queryClient}>
           <Routes>
@@ -31,7 +30,6 @@ function App() {
           </Routes>
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
-      </CartProvider>
     </>
   );
 }
