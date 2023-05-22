@@ -77,11 +77,6 @@ function Checkout() {
     return totalPrice;
   };
 
-  const orderfunc=()=>{
-    alert("You must register")
-    navigate("/register")
-  }
-
   return (
     <>
       <Grid container spacing={4}>
