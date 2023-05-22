@@ -36,10 +36,6 @@ function ResponsiveAppBar() {
    {navigate("/products")} 
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
 const basket=()=>{
   <Link to={Checkout}>Basket</Link>
   {navigate("/checkout")}
